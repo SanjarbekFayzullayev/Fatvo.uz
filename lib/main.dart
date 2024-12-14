@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:fatvo_uz/data/core/utils/home_page/home_page_cubit.dart';
+import 'package:fatvo_uz/data/core/utils/namoz_vaqtlari/namoz_vaqtlari_cubit.dart';
 import 'package:fatvo_uz/data/core/utils/questions/fatwas_cubit.dart';
 import 'package:fatvo_uz/data/core/utils/register/auth_cubit.dart';
 import 'package:fatvo_uz/data/core/utils/register/create_account_cubit.dart';
@@ -10,13 +11,19 @@ import 'package:fatvo_uz/data/core/utils/register/user_profile.dart';
 import 'package:fatvo_uz/data/core/utils/register/verify_code_cubit.dart';
 import 'package:fatvo_uz/presentation/screens/bootom_nav_bar.dart';
 import 'package:fatvo_uz/presentation/screens/home.dart';
+import 'package:fatvo_uz/presentation/screens/quran.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
+
+import 'data/core/utils/tasbih/tasbih_cubit.dart';
+import 'data/core/utils/tasbih/tasbih_total_cubit.dart';
+
 void main() {
   HttpOverrides.global = MyHttpOverrides();
   runApp(const MyApp());
 }
+
 class MyHttpOverrides extends HttpOverrides {
   @override
   HttpClient createHttpClient(SecurityContext? context) {
@@ -25,40 +32,62 @@ class MyHttpOverrides extends HttpOverrides {
           (X509Certificate cert, String host, int port) => true;
   }
 }
+
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        primarySwatch: Colors.blueGrey,
-        textSelectionTheme: TextSelectionThemeData(
-          cursorColor: const Color(0xff285359),
-          // Kursor rangi
-          selectionColor: Colors.yellow.withOpacity(0.5),
-          // Tanlangan matn rangi
-          selectionHandleColor: const Color(
-              0xff285359), // Tanlangan matnning tutqichlari ranglari
-        ),
-      ),
-      home: MultiBlocProvider(
+    return MultiBlocProvider(
         providers: [
           BlocProvider(
             create: (context) => AuthCubit(),
           ),
-          BlocProvider<RegisterCubit>(create: (context) => RegisterCubit()),
-          BlocProvider<VerifyCodeCubit>(create: (context) => VerifyCodeCubit()),
-          BlocProvider(create: (context) => UserProfileCubit()),
+          BlocProvider<RegisterCubit>(
+            create: (context) => RegisterCubit(),
+          ),
+          BlocProvider<VerifyCodeCubit>(
+            create: (context) => VerifyCodeCubit(),
+          ),
+          BlocProvider(
+            create: (context) => UserProfileCubit(),
+          ),
           BlocProvider<CreateAccountCubit>(
-              create: (context) => CreateAccountCubit()),
-          BlocProvider<LoginCubit>(create: (context) => LoginCubit()),
-          BlocProvider<FatwasCubit>(create: (context) => FatwasCubit()),
-          BlocProvider<HomePageCubit>(create: (context) => HomePageCubit()..getCurrentLocation()),
+            create: (context) => CreateAccountCubit(),
+          ),
+          BlocProvider<LoginCubit>(
+            create: (context) => LoginCubit(),
+          ),
+          BlocProvider<FatwasCubit>(
+            create: (context) => FatwasCubit(),
+          ),
+          BlocProvider<HomePageCubit>(
+            create: (context) => HomePageCubit()..getCurrentLocation(),
+          ),
+          BlocProvider<TasbihCubit>(
+            create: (context) => TasbihCubit(),
+          ),
+          BlocProvider<TasbihTotalCubit>(
+            create: (context) => TasbihTotalCubit(),
+          ),
+          BlocProvider<NamozVaqtlariListCubit>(
+            create: (context) => NamozVaqtlariListCubit()..initPrefs(),
+          ),
         ],
-        child: const BottomNavBar(),
-      ),
-    );
+        child: MaterialApp(
+          theme: ThemeData(
+            primarySwatch: Colors.blueGrey,
+            textSelectionTheme: TextSelectionThemeData(
+              cursorColor: const Color(0xff285359),
+              // Kursor rangi
+              selectionColor: Colors.yellow.withOpacity(0.5),
+              // Tanlangan matn rangi
+              selectionHandleColor: const Color(
+                  0xff285359), // Tanlangan matnning tutqichlari ranglari
+            ),
+          ),
+          home: const BottomNavBar(),
+        ));
   }
 }
 

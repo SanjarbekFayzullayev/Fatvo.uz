@@ -1,35 +1,59 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_islamic_icons/flutter_islamic_icons.dart';
-import 'package:step_progress_indicator/step_progress_indicator.dart';
+import 'package:sensors/sensors.dart';
+import 'dart:math';
 
-class QiblahPage extends StatelessWidget {
-  const QiblahPage({Key? key}) : super(key: key);
+class QiblahPage extends StatefulWidget {
+  const QiblahPage({super.key});
+
+  @override
+  State<QiblahPage> createState() => _QiblahPageState();
+}
+
+class _QiblahPageState extends State<QiblahPage> {
+  double _angle = 0.0;
+
+  @override
+  void initState() {
+    super.initState();
+    // Sensor o'qishlarini olish
+    gyroscopeEvents.listen((GyroscopeEvent event) {
+      setState(() {
+        // Gyroscope qiymatlarini burish burchagiga o'zgartirish
+        _angle += event.z / 20; // `z` o'qi bo'yicha burish
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        iconTheme: const IconThemeData(
-          color: Colors.white,
-        ),
+        title: const Text("Compass App"),
         centerTitle: true,
-        backgroundColor: const Color(0xff4B878F),
-        title: const Text(
-          "Qibla",
-          style: TextStyle(
-            color: Colors.white,
-          ),
-        ),
       ),
-      backgroundColor: const Color(0xff4B878F),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Center(
-            child: Image.asset("assets/images/com.png"),
-          ),
+      body: Center(
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            // Kompas fon rasmi
+            SizedBox(
+              width: 300,
+              height: 300,
+              child: Image.asset( 'assets/images/com.png',
+              ),
+            ),
+            // Ko'rsatkich
+            Transform.rotate(
+              angle: _angle,
+              child: SizedBox(
+                width: 300,
+                height: 300,
+                child: Image.asset( 'assets/images/com.png',
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );

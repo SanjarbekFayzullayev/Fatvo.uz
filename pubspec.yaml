@@ -19,6 +19,16 @@ dependencies:
   file_picker: ^5.0.1
   geolocator: ^9.0.0
   geocoding: ^2.0.0
+  dio: ^5.0.0
+  path_provider: ^2.0.11
+  just_audio: ^0.9.34
+  shimmer: ^3.0.0
+  prayers_times: ^0.0.6
+  intl: ^0.19.0
+  adhan_dart: any
+  weekly_date_picker: ^1.4.2
+  hijri: ^3.0.0
+  sensors: ^2.0.3
 
 
 dev_dependencies:
@@ -31,6 +41,8 @@ flutter:
 
   assets:
     - assets/images/
+    - assets/sheyhs/
+    - assets/audios/
 
   # example:
   # fonts:

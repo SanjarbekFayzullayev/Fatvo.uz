@@ -1,5 +1,6 @@
 import 'package:fatvo_uz/data/core/utils/questions/fatwas_cubit.dart';
 import 'package:fatvo_uz/data/core/utils/register/user_profile.dart';
+import 'package:fatvo_uz/presentation/screens/namoz_vaqtalari.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
@@ -24,9 +25,9 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
 
   final List<Widget> _pages2 = [
-    const HomePage(),
+     HomePage(),
     FatwasPage(),
-    ProfileScreen(),
+    NamozVaqtlari(),
   ];
 
 
@@ -97,9 +98,9 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
                   /// Profile
                   SalomonBottomBarItem(
-                    icon: const Icon(Icons.person, size: 26,),
+                    icon: const Icon(Icons.access_time_filled_rounded, size: 26,),
                     title: const Text(
-                      "Profil",
+                      "Namoz vaqtlari",
                       style: TextStyle(color: Color(0xff3F666B)),
                     ),
                     selectedColor: const Color(0xff3F666B),

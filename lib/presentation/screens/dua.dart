@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 class DuaPage extends StatelessWidget {
@@ -21,50 +23,99 @@ class DuaPage extends StatelessWidget {
       ),
       body: Container(
         color: const Color(0xff4B878F),
-        child: ListView.builder(
-          itemBuilder: (context, index) {
-            return Padding(
+        child: Column(
+          children: [
+            Padding(
               padding: const EdgeInsets.only(
                 right: 12,
                 left: 12,
                 top: 12,
               ),
-              child: Container(
-                decoration: BoxDecoration(
+              child: SizedBox(
+                height: 56,
+                child: ClipRRect(
                   borderRadius: BorderRadius.circular(18),
-                  color: Colors.white,
-                ),
-                height: 72,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Container(
-                      alignment: Alignment.center,
-                      height: 40,
-                      width: 40,
+                  child: BackdropFilter(
+                    filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                    child: Container(
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(100),
-                        color: const Color(0xffEFF7DE),
+                        color: Colors.white.withOpacity(0.3),
+                        borderRadius: BorderRadius.circular(18),
+                        border: Border.all(
+                          color: Colors.white,
+                          width: 1,
+                        ),
                       ),
-                      child: const Text(
-                        '1',
-                        style:
-                            TextStyle(color: Color(0xff2B3032), fontSize: 20),
+                      child: TextField(
+                        decoration: InputDecoration(
+                          suffixIcon: const Icon(
+                            Icons.search,
+                            color: Color(0xff285359),
+                          ),
+                          hintText: 'Qidirish...',
+                          hintStyle: const TextStyle(
+                            color: Color(0xff285359),
+                          ),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(18),
+                            borderSide: BorderSide.none,
+                          ),
+                          contentPadding: const EdgeInsets.all(16),
+                        ),
                       ),
                     ),
-                    const Text(
-                      "Tongda o’qiladigan duo",
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: Color(0xff2B3032),
-                      ),
-                    ),
-                    const SizedBox()
-                  ],
+                  ),
                 ),
               ),
-            );
-          },
+            ),
+            Expanded(
+              child: ListView.builder(
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.only(
+                      right: 12,
+                      left: 12,
+                      top: 12,
+                    ),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(18),
+                        color: Colors.white,
+                      ),
+                      height: 72,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Container(
+                            alignment: Alignment.center,
+                            height: 40,
+                            width: 40,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(100),
+                              color: const Color(0xffEFF7DE),
+                            ),
+                            child: const Text(
+                              '1',
+                              style: TextStyle(
+                                  color: Color(0xff2B3032), fontSize: 20),
+                            ),
+                          ),
+                          const Text(
+                            "Tongda o’qiladigan duo",
+                            style: TextStyle(
+                              fontSize: 20,
+                              color: Color(0xff2B3032),
+                            ),
+                          ),
+                          const SizedBox()
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+          ],
         ),
       ),
     );
